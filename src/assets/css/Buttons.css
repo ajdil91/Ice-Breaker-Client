@@ -1,13 +1,8 @@
-.DeleteButton {
-    color:blueviolet;
-    background-color: transparent;
-    border-style: none;
-}
-
-.Add {
-    color: #fff;
-    background-color: blueviolet;
-    border-color: blueviolet;
+.collapseQues {
+    background-color: #9F96E4;
+    width: 80%;
+    border-radius: 3px;
+    padding-top: 8px !important;
 }
 
 .results {

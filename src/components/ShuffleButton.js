@@ -5,35 +5,33 @@ import ShuffleButton from "../assets/images/ice-breaker_button2.png"
 import "../assets/css/Buttons.css"
 import "../assets/css/Text.css"
 
-const ShuffleQuestions = () => {
+const ShuffleQuestions = ({ques}) => {
 
     const [questions, setQuestions] = useState("")
     const [result, setResult] = useState(false)
     const [question, setQuestion] = useState("")
     const [loading, setLoader] = useState('false')
 
-    const getQuestions = async() => {
-        try {
-            const response = await fetch("http://localhost:5000/questions")
-            const jsonData = await response.json()
-
-            setQuestions(jsonData)
-        } catch (error) {
-            console.error(error.message)
-        }
-    }
-
     useEffect(() => {
-        getQuestions();
-    }, []);
+        const getQuestions = async() => {
+            try {
+                setQuestions(ques)
+            } catch (error) {
+                console.error(error.message)
+            }
+        };
+        getQuestions(); 
+    }, [ques]);
 
     const randomizeQuestions = (e) => {
         try {
             showLoader()
             const ques_arry = questions
+            console.log(ques_arry)
             const randomQues = ques_arry[Math.floor(Math.random()*ques_arry.length)]
+            console.log(randomQues)
             setResult(true)
-            setQuestion(randomQues.question)
+            setQuestion(randomQues)
             
         } catch (error) {
             console.error(error.message)
@@ -53,14 +51,16 @@ const ShuffleQuestions = () => {
             return (
                 <div>
                     {showLoader && <Loader/>}
-                    <diV className="results"></diV>
+                    <diV className="results">
+                        <h4 className="TextStyle">Shuffling questions...</h4>
+                    </diV>
                 </div>)
         } else {
             return (
                 <div>
                     <ShowShuffleButton/>
                     <diV className="results">
-                        <h3 className="TextStyle">{question}</h3>
+                        <h4 className="TextStyle">{question}</h4>
                     </diV>
                 </div>)
         }

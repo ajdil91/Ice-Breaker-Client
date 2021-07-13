@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react"
+import React, {Fragment} from "react"
 import loader from "../assets/images/ice-breaker_loader.gif" 
 
 const Loader = () => {

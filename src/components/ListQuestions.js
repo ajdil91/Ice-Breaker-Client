@@ -1,7 +1,6 @@
 import React, {Fragment, useEffect, useState} from "react";
 
-import DeleteQues from './DeleteQuestion'
-import EditQuestion from './EditQuestion'
+import ShuffleQuestions from "./ShuffleButton"
 import "../assets/css/Table.css"
 import "../assets/css/Text.css"
 
@@ -12,10 +11,16 @@ const ListQuestions = () => {
 
     const getQuestions = async() => {
         try {
-            const response = await fetch("http://localhost:5000/questions")
-            const jsonData = await response.json()
+            const questions = [
+                "If you could live anywhere in the world for a year, where would it be?",
+                "Where is your favorite vacation spot?",
+                "What’s the weirdest food you’ve ever eaten?",
+                "What activities do you dream of trying someday?",
+                "If you could have a superpower, what would it be and why?",
+                "As a child, what did you want to be when you grew up?"
+            ]
 
-            setQuestions(jsonData)
+            setQuestions(questions)
 
         } catch (error) {
             console.error(error.message)
@@ -28,19 +33,24 @@ const ListQuestions = () => {
 
     return (
         <Fragment>
+            <ShuffleQuestions ques={questions}/>
             <table class="table mt-5 text-center">
                 <thead>
                     <tr>
-                    <th className="RemoveOutline TextStyle">Questions</th>
+                        <th className="RemoveOutline">
+                            <button class="collapseQues RemoveOutline TextStyle" type="button" data-toggle="collapse" data-target="#quesList">
+                                <h4>Questions</h4>
+                                <p style={{"font-size": "12px"}}>(Click to expand)</p>
+                            </button>
+                        </th>
                     </tr>
                 </thead>
-                <tbody>
-                    {questions.map(ques => (
-                        <tr key={ques.id}>
-                            <td className="RemoveOutline"><EditQuestion ques_obj={ques}/></td>
-                            <td className="RemoveOutline"><DeleteQues ques={ques} questions={questions} setQuestions={setQuestions}/></td>
-                        </tr>
-                    ))}
+                <tbody id="quesList" className="collapse">                 
+                        {questions.map(ques => (
+                            <tr key={ques.id}>
+                                <td className="RemoveOutline TextStyle">{ques}</td>
+                            </tr>
+                        ))}
                 </tbody>
             </table>
             <div className="mb-10"></div>
